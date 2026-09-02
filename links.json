@@ -1,0 +1,90 @@
+{
+  "_comment": "リンク定義ファイル。このファイル1本を編集すればページ全体のリンク先を差し替えられる（印刷済みQRコードは変更不要）。TBD_ で始まる値は未確定のプレースホルダで、ページ上では「準備中」表示または非表示になる。推測で埋めず、確定情報でのみ書き換える。",
+  "_dataSource": {
+    "storeNameAddress": "店舗名・住所は社内の店舗マスタから転記（公開済み情報のみ）。tel/pageUrl は未登録のため TBD",
+    "marketingUrls": "公式チャネルURLは2026-09-02に確定・到達確認済み"
+  },
+  "company": {
+    "name": "株式会社ワイズ",
+    "url": "https://www.wise-jmco.com/"
+  },
+  "commonLinks": [
+    {
+      "key": "youtube",
+      "label": "YouTube",
+      "icon": "▶",
+      "url": "https://www.youtube.com/@phama_cam"
+    },
+    {
+      "key": "line",
+      "label": "公式LINE",
+      "icon": "💬",
+      "url": "https://lin.ee/rmx5fg18"
+    },
+    {
+      "key": "x",
+      "label": "公式X",
+      "icon": "𝕏",
+      "url": "https://x.com/phama_cam_movie"
+    },
+    {
+      "key": "hp",
+      "label": "会社HP",
+      "icon": "🌐",
+      "url": "https://www.wise-jmco.com/"
+    }
+  ],
+  "stores": {
+    "kashiwa": {
+      "name": "つなぐ薬局 柏",
+      "address": "千葉県柏市東1-2-45 サンライズイシド302号室",
+      "tel": "TBD_TEL_kashiwa",
+      "pageUrl": "TBD_STORE_PAGE_URL_kashiwa"
+    },
+    "adachi": {
+      "name": "つなぐ薬局 足立",
+      "address": "東京都足立区梅島1-9-13",
+      "tel": "TBD_TEL_adachi",
+      "pageUrl": "TBD_STORE_PAGE_URL_adachi"
+    },
+    "abiko": {
+      "name": "つなぐ薬局 我孫子",
+      "address": "千葉県我孫子市天王台1-5-3 千修ビル2階",
+      "tel": "TBD_TEL_abiko",
+      "pageUrl": "TBD_STORE_PAGE_URL_abiko"
+    },
+    "ai_chozai": {
+      "name": "アイ調剤薬局",
+      "address": "東京都新宿区新小川町6-38 大曲マンション102号",
+      "tel": "TBD_TEL_ai_chozai",
+      "pageUrl": "TBD_STORE_PAGE_URL_ai_chozai"
+    },
+    "kashiwa_sakuradai": {
+      "name": "つなぐ薬局 柏さくら台",
+      "address": "千葉県柏市桜台2-1",
+      "tel": "TBD_TEL_kashiwa_sakuradai",
+      "pageUrl": "TBD_STORE_PAGE_URL_kashiwa_sakuradai"
+    },
+    "nagareyama": {
+      "name": "ながれやま薬局",
+      "address": "千葉県流山市南流山3-16-3",
+      "tel": "TBD_TEL_nagareyama",
+      "pageUrl": "TBD_STORE_PAGE_URL_nagareyama"
+    }
+  },
+  "_pendingStores": {
+    "koshigaya": {
+      "name": "つなぐ薬局 越谷（新規）",
+      "address": "（開局準備中・住所未確定）",
+      "tel": "TBD_TEL_koshigaya",
+      "pageUrl": "TBD_STORE_PAGE_URL_koshigaya"
+    },
+    "kiyose": {
+      "name": "つなぐ薬局 清瀬（新規）",
+      "address": "（開局準備中・住所未確定）",
+      "tel": "TBD_TEL_kiyose",
+      "pageUrl": "TBD_STORE_PAGE_URL_kiyose"
+    }
+  },
+  "_pendingStoresNote": "未開局（住所未確定）の店舗。開局後に stores へ移す（stores に無いキーは ?s= で指定しても表示されない）"
+}

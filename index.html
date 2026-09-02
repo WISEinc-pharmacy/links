@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ワイズ薬局グループ | リンク集</title>
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    --brand: #1a7f5a;
+    --brand-dark: #115c40;
+    --bg: #f4f7f6;
+    --card-bg: #ffffff;
+    --text: #222831;
+    --muted: #6b7280;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+  .wrap {
+    width: 100%;
+    max-width: 480px;
+    padding: 32px 20px 48px;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  header .logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--brand-dark);
+    letter-spacing: 0.02em;
+  }
+  header .sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .store-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+  }
+  .store-card h2 {
+    font-size: 18px;
+    margin: 0 0 8px;
+    color: var(--brand-dark);
+  }
+  .store-card .line {
+    font-size: 14px;
+    color: var(--text);
+    margin: 4px 0;
+    line-height: 1.5;
+  }
+  .store-card .muted-note {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .btn-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  a.btn, span.btn-disabled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 16px 12px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background: var(--brand);
+    min-height: 52px;
+    text-align: center;
+    transition: opacity 0.15s ease;
+  }
+  a.btn:active { opacity: 0.8; }
+  span.btn-disabled {
+    background: #d1d5db;
+    color: #6b7280;
+    cursor: default;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .icon { font-size: 18px; }
+  footer {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo-text" id="company-name">ワイズ薬局グループ</div>
+      <div class="sub">名刺・二次元コードからのご案内ページ</div>
+    </header>
+
+    <div id="store-section"></div>
+
+    <div class="btn-list" id="common-links"></div>
+
+    <footer>&copy; 株式会社ワイズ</footer>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ── 安全な描画ヘルパー（innerHTML/document.writeは使わない） ─────────────
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined && text !== null) node.textContent = text;
+    return node;
+  }
+
+  function isPlaceholder(url) {
+    return typeof url !== "string" || url.indexOf("TBD_") === 0 || url.length === 0;
+  }
+
+  function makeLinkButton(iconText, labelText, url) {
+    if (isPlaceholder(url)) {
+      var disabled = el("span", "btn-disabled");
+      disabled.appendChild(el("span", "icon", iconText || ""));
+      disabled.appendChild(document.createTextNode(" " + labelText + "（準備中）"));
+      return disabled;
+    }
+    var a = document.createElement("a");
+    a.className = "btn";
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    a.appendChild(el("span", "icon", iconText || ""));
+    a.appendChild(document.createTextNode(" " + labelText));
+    return a;
+  }
+
+  function renderStoreCard(store) {
+    var section = document.getElementById("store-section");
+    var card = el("div", "store-card");
+    card.appendChild(el("h2", null, store.name || "店舗情報"));
+    if (store.address) {
+      card.appendChild(el("div", "line", "📍 " + store.address));
+    }
+    if (store.tel && !isPlaceholder(store.tel)) {
+      var telLine = el("div", "line");
+      var telA = document.createElement("a");
+      telA.href = "tel:" + store.tel.replace(/[^0-9+]/g, "");
+      telA.textContent = "☎ " + store.tel;
+      telA.style.color = "inherit";
+      telLine.appendChild(telA);
+      card.appendChild(telLine);
+    }
+    if (store.pageUrl && !isPlaceholder(store.pageUrl)) {
+      var pageWrap = el("div", "line");
+      pageWrap.style.marginTop = "10px";
+      pageWrap.appendChild(makeLinkButton("🏬", "店舗ページを見る", store.pageUrl));
+      card.appendChild(pageWrap);
+    }
+    section.appendChild(card);
+  }
+
+  function renderCommonLinks(commonLinks) {
+    var wrap = document.getElementById("common-links");
+    (commonLinks || []).forEach(function (item) {
+      wrap.appendChild(makeLinkButton(item.icon, item.label, item.url));
+    });
+  }
+
+  function safeResolveStoreKey(paramValue, storesMap) {
+    // 反射型XSS対策: ?s= の値は「既知storeKeyとの完全一致」照合にのみ使う。
+    // DOMへ値そのものを差し込むことは一切しない（Object.prototype等の汚染も
+    // hasOwnProperty経由で除外する）。
+    if (typeof paramValue !== "string") return null;
+    if (!Object.prototype.hasOwnProperty.call(storesMap || {}, paramValue)) return null;
+    return paramValue;
+  }
+
+  function init(data) {
+    if (data.company && data.company.name) {
+      document.getElementById("company-name").textContent = data.company.name;
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var requestedKey = params.get("s");
+    var resolvedKey = safeResolveStoreKey(requestedKey, data.stores);
+
+    if (resolvedKey) {
+      renderStoreCard(data.stores[resolvedKey]);
+    }
+    // 不明キー・パラメータなしの場合はデフォルト（店舗カードを出さず、
+    // 会社共通リンクのみのトップページ相当）にフォールバックする。
+
+    renderCommonLinks(data.commonLinks);
+  }
+
+  fetch("links.json", { cache: "no-store" })
+    .then(function (res) {
+      if (!res.ok) throw new Error("links.json fetch failed: " + res.status);
+      return res.json();
+    })
+    .then(init)
+    .catch(function (err) {
+      var wrap = document.getElementById("common-links");
+      wrap.appendChild(el("div", "line muted-note", "リンク情報の読み込みに失敗しました。時間をおいて再度お試しください。"));
+      // eslint-disable-next-line no-console
+      console.error(err);
+    });
+})();
+</script>
+</body>
+</html>
