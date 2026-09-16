@@ -3,23 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ワイズ薬局グループ | リンク集</title>
+<title>つなぐ薬局・はぐくみ薬局グループ | ご紹介</title>
 <meta name="robots" content="noindex">
 <style>
   :root {
-    --brand: #1a7f5a;
-    --brand-dark: #115c40;
-    --bg: #f4f7f6;
-    --card-bg: #ffffff;
-    --text: #222831;
-    --muted: #6b7280;
+    --main-color: #1a2a4a;
+    --accent-color: #2563EB;
+    --bg-color: #F0F4FF;
+    --white: #ffffff;
+    --text-color: #1E293B;
+    --muted: #64748B;
+    --border-color: #E2E8F0;
   }
   * { box-sizing: border-box; }
   body {
     margin: 0;
     font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    background: var(--bg-color);
+    color: var(--text-color);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -36,7 +37,7 @@
   header .logo-text {
     font-size: 20px;
     font-weight: 700;
-    color: var(--brand-dark);
+    color: var(--main-color);
     letter-spacing: 0.02em;
   }
   header .sub {
@@ -44,28 +45,46 @@
     color: var(--muted);
     margin-top: 4px;
   }
+  #primary-link {
+    margin-bottom: 20px;
+  }
   .store-card {
-    background: var(--card-bg);
+    background: var(--white);
     border-radius: 16px;
     padding: 18px 20px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 10px rgba(26, 42, 74, 0.08);
+    border: 1px solid var(--border-color);
   }
   .store-card h2 {
     font-size: 18px;
     margin: 0 0 8px;
-    color: var(--brand-dark);
+    color: var(--main-color);
   }
   .store-card .line {
     font-size: 14px;
-    color: var(--text);
+    color: var(--text-color);
     margin: 4px 0;
     line-height: 1.5;
   }
   .store-card .muted-note {
     font-size: 12px;
     color: var(--muted);
+  }
+  .section-box {
+    background: var(--white);
+    border: 2px solid var(--accent-color);
+    border-radius: 16px;
+    padding: 20px 18px;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--main-color);
+    text-align: center;
+    margin: 0 0 14px;
+    letter-spacing: 0.02em;
   }
   .btn-list {
     display: flex;
@@ -84,20 +103,31 @@
     font-weight: 600;
     text-decoration: none;
     color: #fff;
-    background: var(--brand);
+    background: var(--accent-color);
     min-height: 52px;
     text-align: center;
     transition: opacity 0.15s ease;
   }
+  a.btn-primary {
+    background: var(--main-color);
+    font-size: 17px;
+    font-weight: 700;
+  }
   a.btn:active { opacity: 0.8; }
   span.btn-disabled {
-    background: #d1d5db;
-    color: #6b7280;
+    background: var(--border-color);
+    color: var(--muted);
     cursor: default;
     font-weight: 500;
     font-size: 14px;
   }
   .icon { font-size: 18px; }
+  .notice {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin: 12px 0;
+  }
   footer {
     margin-top: 32px;
     text-align: center;
@@ -109,13 +139,15 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="logo-text" id="company-name">ワイズ薬局グループ</div>
+      <div class="logo-text" id="company-name">つなぐ薬局・はぐくみ薬局グループのご紹介</div>
       <div class="sub">名刺・二次元コードからのご案内ページ</div>
     </header>
 
+    <div id="primary-link"></div>
+
     <div id="store-section"></div>
 
-    <div class="btn-list" id="common-links"></div>
+    <div id="sections"></div>
 
     <footer>&copy; ワイズ株式会社</footer>
   </div>
@@ -136,7 +168,7 @@
     return typeof url !== "string" || url.indexOf("TBD_") === 0 || url.length === 0;
   }
 
-  function makeLinkButton(iconText, labelText, url) {
+  function makeLinkButton(iconText, labelText, url, variant) {
     if (isPlaceholder(url)) {
       var disabled = el("span", "btn-disabled");
       disabled.appendChild(el("span", "icon", iconText || ""));
@@ -144,13 +176,19 @@
       return disabled;
     }
     var a = document.createElement("a");
-    a.className = "btn";
+    a.className = variant === "primary" ? "btn btn-primary" : "btn";
     a.href = url;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
     a.appendChild(el("span", "icon", iconText || ""));
     a.appendChild(document.createTextNode(" " + labelText));
     return a;
+  }
+
+  function renderPrimaryLink(link) {
+    if (!link) return;
+    var wrap = document.getElementById("primary-link");
+    wrap.appendChild(makeLinkButton(link.icon, link.label, link.url, "primary"));
   }
 
   function renderStoreCard(store) {
@@ -178,10 +216,17 @@
     section.appendChild(card);
   }
 
-  function renderCommonLinks(commonLinks) {
-    var wrap = document.getElementById("common-links");
-    (commonLinks || []).forEach(function (item) {
-      wrap.appendChild(makeLinkButton(item.icon, item.label, item.url));
+  function renderSections(sections) {
+    var container = document.getElementById("sections");
+    (sections || []).forEach(function (section) {
+      var box = el("div", "section-box");
+      box.appendChild(el("h3", "section-title", section.title || ""));
+      var btnList = el("div", "btn-list");
+      (section.links || []).forEach(function (item) {
+        btnList.appendChild(makeLinkButton(item.icon, item.label, item.url));
+      });
+      box.appendChild(btnList);
+      container.appendChild(box);
     });
   }
 
@@ -195,9 +240,11 @@
   }
 
   function init(data) {
-    if (data.company && data.company.name) {
-      document.getElementById("company-name").textContent = data.company.name;
+    if (data.company && (data.company.displayTitle || data.company.name)) {
+      document.getElementById("company-name").textContent = data.company.displayTitle || data.company.name;
     }
+
+    renderPrimaryLink(data.primaryLink);
 
     var params = new URLSearchParams(window.location.search);
     var requestedKey = params.get("s");
@@ -207,9 +254,9 @@
       renderStoreCard(data.stores[resolvedKey]);
     }
     // 不明キー・パラメータなしの場合はデフォルト（店舗カードを出さず、
-    // 会社共通リンクのみのトップページ相当）にフォールバックする。
+    // 公式HPボタンと研修コンテンツ枠のみのトップページ相当）にフォールバックする。
 
-    renderCommonLinks(data.commonLinks);
+    renderSections(data.sections);
   }
 
   fetch("links.json", { cache: "no-store" })
@@ -219,8 +266,8 @@
     })
     .then(init)
     .catch(function (err) {
-      var wrap = document.getElementById("common-links");
-      wrap.appendChild(el("div", "line muted-note", "リンク情報の読み込みに失敗しました。時間をおいて再度お試しください。"));
+      var wrap = document.getElementById("sections");
+      wrap.appendChild(el("div", "notice", "リンク情報の読み込みに失敗しました。時間をおいて再度お試しください。"));
       // eslint-disable-next-line no-console
       console.error(err);
     });

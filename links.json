@@ -1,37 +1,44 @@
 {
-  "_comment": "リンク定義ファイル。このファイル1本を編集すればページ全体のリンク先を差し替えられる（印刷済みQRコードは変更不要）。TBD_ で始まる値は未確定のプレースホルダで、ページ上では「準備中」表示または非表示になる。推測で埋めず、確定情報でのみ書き換える。",
+  "_comment": "リンク定義ファイル。このファイル1本を編集すればページ全体のリンク先を差し替えられる（印刷済みQRコードは変更不要）。TBD_ で始まる値は未確定のプレースホルダで、ページ上では「準備中」表示または非表示になる。推測で埋めず、確定情報でのみ書き換える。primaryLink は見出し直下に単独表示する公式HPボタン。sections は枠で囲って表示するリンク群（現在は研修コンテンツ ファーマシストキャンパスの1枠のみ）。",
   "_dataSource": {
     "storeNameAddress": "店舗名・住所は社内の店舗マスタから転記（公開済み情報のみ）。tel/pageUrl は未登録のため TBD",
-    "marketingUrls": "公式チャネルURLは2026-09-02に確定・到達確認済み"
+    "marketingUrls": "公式チャネルURLは2026-09-02に確定・到達確認済み（2026-09-15: primaryLink/sections構造へ再編、URL値は無変更）"
   },
   "company": {
     "name": "ワイズ株式会社",
+    "displayTitle": "つなぐ薬局・はぐくみ薬局グループのご紹介",
     "url": "https://www.wise-jmco.com/"
   },
-  "commonLinks": [
+  "primaryLink": {
+    "key": "hp",
+    "label": "公式ホームページ",
+    "icon": "🌐",
+    "url": "https://www.wise-jmco.com/"
+  },
+  "sections": [
     {
-      "key": "youtube",
-      "label": "YouTube",
-      "icon": "▶",
-      "url": "https://www.youtube.com/@phama_cam"
-    },
-    {
-      "key": "line",
-      "label": "公式LINE",
-      "icon": "💬",
-      "url": "https://lin.ee/rmx5fg18"
-    },
-    {
-      "key": "x",
-      "label": "公式X",
-      "icon": "𝕏",
-      "url": "https://x.com/phama_cam_movie"
-    },
-    {
-      "key": "hp",
-      "label": "会社HP",
-      "icon": "🌐",
-      "url": "https://www.wise-jmco.com/"
+      "key": "pharmacist_campus",
+      "title": "研修コンテンツ ファーマシストキャンパス",
+      "links": [
+        {
+          "key": "youtube",
+          "label": "YouTube",
+          "icon": "▶",
+          "url": "https://www.youtube.com/@phama_cam"
+        },
+        {
+          "key": "line",
+          "label": "公式LINE",
+          "icon": "💬",
+          "url": "https://lin.ee/rmx5fg18"
+        },
+        {
+          "key": "x",
+          "label": "公式X",
+          "icon": "𝕏",
+          "url": "https://x.com/phama_cam_movie"
+        }
+      ]
     }
   ],
   "stores": {
